@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function CArray(numElements) {
+        this.dataStore = [];
+        this.pos = 0;
+        this.numElements = numElements;
+        this.insert = insert;
+        this.toString = toString;
+        this.clear = clear;
+        this.setData = setData;
+        this.swap = swap;
+        this.mergeSort = mergeSort;
+
+        for (var i = 0; i < numElements; i++) {
+          this.dataStore[i] = 1;
+        }
+      }
+      function setData() {
+        for (var i = 0; i < this.numElements; i++) {
+          this.dataStore[i] = Math.floor(
+            Math.random() * (this.numElements + 1)
+          );
+        }
+      }
+
+      function clear() {
+        for (var i = 0; i < this.dataStore.length; i++) {
+          this.dataStore[i] = 0;
+        }
+      }
+
+      function insert(element) {
+        this.dataStore[this.pos++] = element;
+      }
+
+      function toString() {
+        var retstr = "";
+        for (var i = 0; i < this.dataStore.length; i++) {
+          retstr += this.dataStore[i] + " ";
+          if ((i > 0) & (i % 10 == 0)) {
+            retstr += "\n";
+          }
+        }
+        return retstr;
+      }
+
+      function swap(arr, index1, index2) {
+        var temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+      }
+
+      function bubbleSort() {
+        var numElements = myNums.dataStore.length;
+        var temp;
+        // 因为每次找到了最大的所以从最大值开始递减
+        for (var outer = numElements; outer >= 2; outer--) {
+          // 找到当前最大并把他放置到最后
+          for (var inner = 0; inner <= outer - 1; inner++) {
+            if (myNums.dataStore[inner] > myNums.dataStore[inner + 1]) {
+              swap(myNums.dataStore, inner, inner + 1);
+            }
+          }
+        }
+      }
+
+      function selectionSort() {
+        var min, temp;
+        // 62341
+        for (var outer = 0; outer <= myNums.dataStore.length - 2; outer++) {
+          // 首先最小为0
+          // 接下来找第二小的
+          min = outer;
+          for (
+            var inner = outer + 1;
+            inner <= myNums.dataStore.length - 1;
+            inner++
+          ) {
+            // 从第一个开始比-遇到比2比6小首先为2继续找直至找到1
+            if (myNums.dataStore[inner] < myNums.dataStore[min]) {
+              min = inner;
+            }
+          }
+          //   找到后交换第一个数和应当最小的数
+          swap(myNums.dataStore, min, outer);
+        }
+      }
+
+      function binSearch(arr, value) {
+        console.log(arr);
+        var low = 0;
+        var high = arr.length - 1;
+        while (low <= high) {
+          var mid = Math.floor((low + high) / 2);
+          if (arr[mid] == value) {
+            return mid;
+          } else if (arr[mid] < value) {
+            low = mid + 1;
+          } else {
+            high = mid - 1;
+          }
+        }
+        return -1;
+      }
+
+      function insertionSort() {
+        var temp, inner;
+        for (var outer = 1; outer <= myNums.dataStore.length - 1; outer++) {
+          temp = myNums.dataStore[outer];
+          inner = outer;
+          while (inner > 0 && myNums.dataStore[inner - 1] >= temp) {
+            myNums.dataStore[inner] = myNums.dataStore[inner - 1];
+            inner--;
+          }
+          myNums.dataStore[inner] = temp;
+        }
+      }
+
+      function shellSort() {
+        var n = myNums.dataStore.length;
+        var h = 1;
+        while (h < n / 3) h = 3 * h + 1;
+        while (h >= 1) {
+          console.log(h);
+          for (var i = h; i < n; i++) {
+            for (
+              var j = i;
+              j >= h && myNums.dataStore[j] < myNums.dataStore[j - h];
+              j -= h
+            ) {
+              swap(myNums.dataStore, j, j - h);
+            }
+            console.log(myNums.dataStore);
+          }
+          h = (h - 1) / 3;
+        }
+      }
+
+      function mergeSort(arr) {
+        if (arr.length <= 1) {
+          return arr;
+        }
+
+        const mid = Math.floor(arr.length / 2);
+        const left = arr.slice(0, mid);
+        const right = arr.slice(mid);
+
+        return mergeArrays(mergeSort(left), mergeSort(right));
+      }
+
+      function mergeArrays(left, right) {
+        console.log(left, right);
+        const result = [];
+        let leftIndex = 0;
+        let rightIndex = 0;
+
+        while (leftIndex < left.length && rightIndex < right.length) {
+          if (left[leftIndex] < right[rightIndex]) {
+            result.push(left[leftIndex]);
+            leftIndex++;
+          } else {
+            result.push(right[rightIndex]);
+            rightIndex++;
+          }
+        }
+
+        while (leftIndex < left.length) {
+          result.push(left[leftIndex]);
+          leftIndex++;
+        }
+
+        while (rightIndex < right.length) {
+          result.push(right[rightIndex]);
+          rightIndex++;
+        }
+
+        return result;
+      }
+
+      function qSort(list) {
+        if (list.length == 0) return list;
+        var less = [];
+        var greater = [];
+
+        var pivot = list[0];
+
+        for (var i = 1; i < list.length; i++) {
+          if (list[i] < pivot) {
+            less.push(list[i]);
+          } else {
+            greater.push(list[i]);
+          }
+        }
+        return qSort(less).concat([pivot], qSort(greater));
+      }
+      var numElements = 10;
+      var myNums = new CArray(numElements);
+      myNums.setData();
+      console.log("Before sort: " + myNums.toString());
+      //   var starttime = new Date().getTime();
+      selectionSort(myNums.dataStore);
+      var findindex =  binSearch(myNums.dataStore, 2)
+      console.log(findindex);
+      //  
+      //   var stoptime = new Date().getTime();
+      //   console.log(qSort(myNums.dataStore));
+      //   console.log("mergeSort : " + myNums.toString());
+      //   console.log("mergeSort() 花费了" + (stoptime - starttime) + "毫秒");
+    </script>
+  </body>
+</html>

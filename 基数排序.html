@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function queues(arr) {
+        // 把数据放进queues
+        var queues = [];
+        for (var i = 0; i < arr.length; i++) {
+          queues.push(arr[i]);
+        }
+        // 按照个位数排序
+        var res = [];
+        for (var i = 0; i < 10; i++) {
+          res.push([]);
+        }
+        for (let index = 0; index < queues.length; index++) {
+          res[queues[index] % 10].push(queues[index]);
+        }
+        // 整合总数
+        var rese = [];
+        for (let index = 0; index < res.length; index++) {
+          rese.push(...res[index]);
+        }
+        // 按照十位数排序
+        var ret = [];
+        for (var i = 0; i < 10; i++) {
+          ret.push([]);
+        }
+        for (let index = 0; index < rese.length; index++) {
+          ret[Math.floor(rese[index] / 10)].push(rese[index]);
+        }
+        // 整合总数
+
+        var resee = [];
+        for (let index = 0; index < ret.length; index++) {
+          resee.push(...ret[index]);
+        }
+        return resee;
+      }
+      console.log(queues([23, 5, 67, 89, 4, 56, 34]));
+    </script>
+  </body>
+</html>

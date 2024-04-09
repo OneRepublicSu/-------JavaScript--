@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function isPalindrome(word) {
+        let arr = [];
+        arr = word.split('');
+        for (let index = 0; index < arr.length; index++) {
+          if (arr[index] !== arr[arr.length - 1 - index]) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+      }
+      console.log("hello", isPalindrome("hello"));
+      console.log("helleh", isPalindrome("helleh"));
+      console.log("helrleh", isPalindrome("helrleh"));
+    </script>
+  </body>
+</html>

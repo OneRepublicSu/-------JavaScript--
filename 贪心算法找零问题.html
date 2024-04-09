@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function makeChange(OrigAmt, coins) {
+        var remainAmt = 0;
+        if (OrigAmt % 0.25 < OrigAmt) {
+          coins[3] = parseInt(OrigAmt / 0.25);
+          remainAmt = OrigAmt % 0.25;
+          OrigAmt = remainAmt;
+        }
+        if (OrigAmt % 0.1 < OrigAmt) {
+          coins[2] = parseInt(OrigAmt / 0.1);
+          remainAmt = OrigAmt % 0.1;
+          OrigAmt = remainAmt;
+        }
+        if (OrigAmt % 0.05 < OrigAmt) {
+          coins[1] = parseInt(OrigAmt / 0.05);
+          remainAmt = OrigAmt % 0.05;
+          OrigAmt = remainAmt;
+        }
+        coins[0] = parseInt(OrigAmt / 0.01);
+      }
+
+      function showChange(coins) {
+        console.log(coins);
+        if (coins[3] > 0) {
+          console.log("25美分的数量是" + coins[3]);
+        }
+        if (coins[2] > 0) {
+          console.log("10美分的数量是" + coins[2]);
+        }
+        if (coins[1] > 0) {
+          console.log("5美分的数量是" + coins[1]);
+        }
+        if (coins[0] > 0) {
+          console.log("1美分的数量是" + coins[0]);
+        }
+      }
+
+      var OrigAmt = 0.63;
+      var coins = [];
+      makeChange(OrigAmt, coins);
+      showChange(coins);
+    </script>
+  </body>
+</html>

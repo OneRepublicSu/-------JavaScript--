@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function recurFib(n) {
+        if (n < 2) {
+          return n;
+        } else {
+          return recurFib(n - 1) + recurFib(n - 2);
+        }
+      }
+      function dynFib(n) {
+        var val = [];
+        for (var i = 0; i < n; i++) {
+          val[i] = 0;
+        }
+        if (n == 1 || n == 2) {
+          return 1;
+        } else {
+          val[1] = 1;
+          val[2] = 1;
+          for (var i = 3; i <= n; i++) {
+            val[i] = val[i - 1] + val[i - 2];
+          }
+          return val;
+        }
+      }
+      var start = new Date().getTime();
+      console.log(recurFib(30));
+      var end = new Date().getTime();
+      console.log("递归方法执行时间：" + (end - start) + "ms");
+      var starte = new Date().getTime();
+      console.log(dynFib(30));
+      var stope = new Date().getTime();
+      console.log("动态规划方法执行时间：" + (stope - starte) + "ms");
+    </script>
+  </body>
+</html>

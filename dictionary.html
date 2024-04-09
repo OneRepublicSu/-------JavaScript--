@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function dictionary() {
+        this.datastore = new Object();
+        this.add = add;
+        this.find = find;
+        this.remove = remove;
+        this.showAll = showAll;
+      }
+
+      function add(key, value) {
+        this.datastore[key] = value;
+      }
+      function find(key) {
+        return this.datastore[key];
+      }
+
+      function remove(key) {
+        delete this.datastore[key];
+      }
+
+      //   注意函数的作用域问题
+
+      function showAll() {
+        this.datastore["asp"];
+        Object.keys(this.datastore).forEach((key) => {
+          console.log(key, this.datastore[key]);
+        });
+      }
+
+      var books = new dictionary();
+      books.add("jsp", "java server pages");
+      books.add("asp", "active server pages");
+      books.add("php", "hypertext preprocessor");
+      console.log("php是", books.find("php"));
+      books.remove("asp");
+      books.showAll();
+    </script>
+  </body>
+</html>

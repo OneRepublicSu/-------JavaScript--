@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Graph(v) {
+        this.vertices = v;
+        this.vertexesList = [];
+        this.adj = [];
+        for (let i = 0; i < this.vertices; i++) {
+          this.adj[i] = [];
+        }
+        this.addEdge = addEdge;
+        this.showGraph = showGraph;
+        this.topSort = topSort;
+        this.topSortHelper = topSortHelper;
+      }
+      function topSort() {
+        var statck = [];
+        var visited = [];
+        // 初始时所有的顶点都没有被访问过
+        for (var i = 0; i < this.vertices; i++) {
+          visited[i] = false;
+        }
+
+        for (var i = 0; i < visited.length; i++) {
+          if (visited[i] == false) {
+            this.topSortHelper(i, visited, statck);
+          }
+        }
+
+        for (var i = 0; i < statck.length; i++) {
+          if (statck[i] != undefined) {
+            console.log(this.vertexesList[statck[i]], "?");
+          }
+        }
+      }
+
+      function topSortHelper(v, visited, stack) {
+        // 标记为已经访问
+        visited[v] = true;
+        // 遍历每个点
+        this.adj[v].forEach((item) => {
+          if (!visited[item]) {
+            this.topSortHelper(item, visited, stack);
+          }
+        });
+        stack.unshift(v);
+      }
+
+      function addEdge(v, w) {
+        this.adj[v].push(w);
+        this.adj[w].push(v);
+      }
+      function showGraph() {
+        var visited = [];
+        for (let i = 0; i < this.vertices; i++) {
+          str = str + ("[" + this.vertexesList[i] + "->" + "]");
+          for (var j = 0; j < this.vertices; j++) {
+            if (this.adj[i][j] != undefined) {
+              str = str + (this.vertexesList[this.adj[i][j]] + " ");
+            }
+          }
+          visited.pop();
+        }
+        console.log(str);
+      }
+
+      var str = "";
+      g = new Graph(6);
+      g.addEdge(1, 2);
+      g.addEdge(2, 5);
+      g.addEdge(1, 3);
+      g.addEdge(1, 4);
+      g.addEdge(0, 1);
+    //   g.vertexesList = ["0", "1", "2", "3", "4", "5"];
+        g.vertexesList = ["cs1", "cs2", "ds", "al", "os", "alg"];
+    //   g.showGraph();
+      g.topSort();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function max(a, b) {
+        return a > b ? a : b;
+      }
+
+      function dKnapsack(capacity, weight, value, n) {
+        var K = [];
+        for (var i = 0; i <= capacity + 1; i++) {
+          K[i] = [];
+        }
+        for (var i = 0; i <= n; i++) {
+          for (var w = 0; w <= capacity; w++) {
+            if (i == 0 || w == 0) {
+              K[i][w] = 0;
+            } else if (weight[i - 1] <= w) {
+                // 如果当前物品的重量小于等于当前容量，那么可以选当前物品，也可以不选
+              K[i][w] = max(
+                value[i - 1] + K[i - 1][w - weight[i - 1]],
+                K[i - 1][w]
+              );
+            } else {
+              K[i][w] = K[i - 1][w];
+            }
+            str += K[i][w] + " ";
+          }
+        }
+        return K;
+      }
+      var str = "";
+      var value = [4, 5, 10, 11, 13];
+      var size = [3, 4, 7, 8, 9];
+      var capacity = 16;
+      var n = 5;
+      console.log(dKnapsack(capacity, size, value, n));
+    </script>
+  </body>
+</html>
